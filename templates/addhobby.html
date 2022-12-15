@@ -1,0 +1,26 @@
+<html>
+    <body>
+        <form method="post" action="{% url 'addhobbyAction' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>HOBBYNAME</td>
+                    <td><input type="text" name="hobbyname"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="add"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+				alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+
+</html>

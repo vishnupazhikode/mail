@@ -1,0 +1,33 @@
+<html>
+    <body>
+        <form method="post" action="{% url 'custumeragefactorAction' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>AGE FACTOR</td>
+                    <td>
+                        <select name="agefactor" id="agefactor">
+                            <option value="">--select--</option>
+                            {% for v in cag %}
+                            <option value="{{v.id}}">{{v.factor}}</option>
+                            {% endfor %}
+                            </select>
+                    </td>
+                    
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+    {% if messages %}
+        {% for msg in messages %}
+            <script>
+                alert('{{msg}}')
+            </script>
+        {% endfor %}
+    {% endif %}
+</html>

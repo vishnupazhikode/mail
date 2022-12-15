@@ -1,0 +1,142 @@
+<html>
+        <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+    $(document).ready(function(){
+    $('#country').change(function(){
+    var cid=$("#country").val();
+    $.ajax({
+        url:"{% url 'getstate' %}",
+        data:{'country_id':cid},
+        success:function(data){
+        $("#state").html(data);
+        }
+    })
+})
+    })
+    
+
+    </script>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        $('#username').change(function(){
+        var username=$('#username').val();
+        $.ajax({
+            url:"{% url 'checkusername' %}",
+            data:{'username':username},
+            success:function(data){
+        
+            if(data.valid != "exist")
+            {
+                alert("username already exist")
+            }
+            ('#username').val('');
+    }
+    })
+    })
+    })
+    </script>
+    
+
+    <body>
+        <form method="post" action="{% url 'registerAction' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>NAME</td>
+                    <td><input type="text" name="name"></td>
+                </tr>
+
+                <tr>
+                    <td>ADDRESS</td>
+                    <td><textarea name="address" rows="3" coloumns="2"></textarea></td>
+                </tr>
+
+                <tr>
+                    <td>GENDER</td>
+                    <td><input type="radio" name="gender" value="male">male<input type="radio" name="gender" value="female">female</td>
+                </tr>
+
+                <tr>
+                    <td>DOB</td>
+                    <td><input type="date" name="dob"></td>
+                </tr>
+
+                <tr>
+                    <td>PHONENUMBER</td>
+                    <td><input type="text" name="phonenumber"></td>
+                </tr>
+
+                <tr>
+                    <td>COUNTRY</td>
+                    <td>
+                        <select name="country" id="country">
+                        <option value="">--select--</option>
+                        {% for v in country %}
+                        <option value="{{v.id}}">{{v.countryname}}</option>
+                        {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td>STATE</td>
+                        <td>
+                            <select name="state" id="state">
+                            <option value="">--select--</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>HOBBY</td>
+                        {% for v in hobby %}
+                        <td><input type="checkbox" name="hobby" value="{{v.id}}">{{v.name}}</td>
+                        {% endfor %}
+                    </tr>
+
+                    <tr>
+                        <td>USERNAME</td>
+                        <td><input type="text" name="username" id="username">+@mymail.com</td>
+                    </tr>
+
+                    <tr>
+                        <td>PASSWORD</td>
+                        <td><input type="password" name="password"></td>
+                    </tr>
+
+                    <tr>
+                        <td>SECURITYQUESTION</td>
+                        <td>
+                            <select name="securityquestion">
+                            <option value="">--select--</option>
+                            <option value="whats ur name">whats ur name</option>
+                            <option value="whats ur hobby">whats ur hobby</option>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>ANSWER</td>
+                        <td><input type="text" name="answer"></td>
+                    </tr>
+
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="register"></td>
+                    </tr>
+
+
+                    
+
+                
+            </table>
+        </form>
+    </body>
+{% if messages %}
+	{% for msg in messages %}
+		<script>
+				alert('{{msg}}')
+		</script>
+	{% endfor %}
+{% endif %}
+</html>

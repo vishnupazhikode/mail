@@ -1,0 +1,53 @@
+<html>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+    <script>
+        $(document).ready(function(){
+        $('#username').change(function(){
+        var username=$('#username').val();
+        $.ajax({
+            url:"{% url 'checkusername' %}",
+            data:{'username':username},
+            success:function(data){
+        
+            if(data.valid != "exist")
+            {
+                alert("contactid not exist")
+            }
+            ('#username').val('');
+    }
+    })
+    })
+    })
+    </script>
+    
+    <body>
+        <form method="post" action="{% url 'blacklistAction' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>CONTACTID</td>
+                    <td><input type="text" name="contactid" id="username"></td>
+                </tr>
+                <tr>
+                    <td>NAME</td>
+                    <td><input type="text" name="name"></td>
+                </tr>
+                <tr>
+                    <td>REMARK</td>
+                    <td><input type="text" name="remark"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="add"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+    {% if messages %}
+        {% for msg in messages %}
+            <script>
+                    alert('{{msg}}')
+            </script>
+        {% endfor %}
+    {% endif %}
+</html>

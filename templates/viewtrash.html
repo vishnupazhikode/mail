@@ -1,0 +1,23 @@
+<html>
+    <body>
+        <form>
+            <table>
+                <tr>
+                    <th>RECIVERNAME</th>
+                    <th>MESSAGE</th>
+                    <th>DATE</th>
+                    <th>TIME</th>
+                </tr>
+                {% for v in tra %}
+                <tr>
+                    <td>{{v.reciverid.username}}</td>
+                    <td>{{v.messageid.message}}</td>
+                    <td>{{v.date}}</td>
+                    <td>{{v.time}}</td>
+                    <td><a href="{% url 'deletetrassh' v.id %}">DELETE TRASH</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<html>
+    <script src="/static/jquery-1.8.3.min.js"></script>
+<script>
+    $(document).ready(function(){
+    $('#recivername').change(function(){
+    var recivername=$('#recivername').val();
+    $.ajax({
+        url:"{% url 'checkreciver' %}",
+        data:{'user':recivername},
+        success:function(data){
+    
+        if(data.valid != "exist")
+        {
+            alert("contactid not exist")
+        }
+        ('#recivername').val('');
+}
+})
+})
+})
+</script>
+    <body>
+        <form method="post" action="{% url 'addcontactAction'%}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>CONTACT ID</td>
+                    <td><input type="text" name='contactabc' id="recivername"></td>
+                </tr>
+
+                <tr>
+                    <td>NAME</td>
+                    <td><input type="text" name="name"></td>
+                </tr>
+
+                <tr>
+                    <td>REMARK</td>
+                    <td><input type="text" name="remark"></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="submit"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+{% if messages %}
+    {% for msg in messages %}
+    <script>
+        alert('{{msg}}')
+    </script>
+    {% endfor %}
+{% endif %}
+</html>

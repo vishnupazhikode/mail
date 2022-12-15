@@ -1,0 +1,135 @@
+<html>
+<script src="/static/jquery-1.8.3.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#country').change(function () {
+            var cid = $("#country").val();
+            $.ajax({
+                url: "{% url 'getstate' %}",
+                data: { 'country_id': cid },
+                success: function (data) {
+                    $("#state").html(data);
+                }
+            })
+        })
+    })
+
+
+</script>
+
+<body>
+    <form method="post" action="{% url 'editAction'%}">
+        {% csrf_token %}
+        {% for v in user %}
+
+        <table>
+            <tr>
+                <td>NAME</td>
+                <td><input type="text" name="name" value="{{v.name}}"></td>
+            </tr>
+
+            <tr>
+                <td>ADDRESS</td>
+                <td><textarea name="address" rows="4" coloumns="3">{{v.address}}</textarea></td>
+            </tr>
+
+            <tr>
+                <td>GENDER</td>
+                <td>
+                    {% if v.gender == 'male' %}
+                    <input type="radio" name="gender" value="gender" checked="true">male
+                    <input type="radio" name="gender" value="gender">female
+                    {% else %}
+                    <input type="radio" name="gender" value="gender">male
+                    <input type="radio" name="gender" value="gender" checked="true">female
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>DOB</td>
+                <td><input type="date" name="dob" value="{{v.dob}}"></td>
+            </tr>
+
+            <tr>
+                <td>PHONENUMBER</td>
+                <td><input type="text" name="phonenumber" value="{{v.phonenumber}}"></td>
+            </tr>
+
+            <tr>
+                <td>COUNTRY</td>
+                <td>
+                    <select name="country" id="country">
+                        <option value="">--select--</option>
+                        <option value="{{v.country.id}}">{{v.country.name}}
+                            {% for a in country %}
+                        <option value="{{a.id}}">{{a.countryname}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+
+            <tr>
+                <td>STATE</td>
+                <td>
+                    <select name="state" id="state">
+                        <option value="{{v.state.id}}">{{v.state.statename}}</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>HOBBY</td>
+                {% for v in hobby %}
+                <td><input type="checkbox" name="hobby" {% for d in ho %} value="{{v.id}}" {{v.name}} 
+                    {% if v.id == d.hobbyid.id %} checked="true" {% endif %} {% endfor %}>{{v.name}}
+                </td>
+                {% endfor %}
+            </tr>
+
+            <tr>
+                <td>USERNAME</td>
+                <td><input type="text" name="username" value="{{v.username}}"></td>
+            </tr>
+
+            <tr>
+                <td>PASSWORD</td>
+                <td><input type="text" name="password" value="{{v.password}}"></td>
+            </tr>
+
+            <tr>
+                <td>SECURITYQUESTION</td>
+                <td>
+                    <select name="securityquestion">
+                        <option value="">--select--</option>
+                        <option value="whats ur name">whats ur name</option>
+                        <option value="whats ur hobby">whats ur hobby</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>ANSWER</td>
+                <td><input type="text" name="answer" value="{{v.answer}}"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input type="submit" name="update"></td>
+            </tr>
+
+
+        </table>
+
+    </form>
+    {% endfor %}
+
+</body>
+{% if messages %}
+    {% for msg in messages %}
+    <script>
+        alert('{{msg}}')
+    </script>
+    {% endfor %}
+{% endif %}
+
+</html>

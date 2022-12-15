@@ -1,0 +1,33 @@
+<html>
+    <body>
+        <form>
+            <table>
+                <tr>
+                    <th>USER</th>
+                    <th>NAME</th>
+                    <th>REMARK</th>
+                    <th>DATE</th>
+                    <th>TIME</th>
+                </tr>
+                {% for v in cont %}
+                <tr>
+                    <td>{{v.contactid.username}}</td>
+                    <td>{{v.name}}</td>
+                    <td>{{v.remark}}</td>
+                    <td>{{v.date}}</td>
+                    <td>{{v.time}}</td>
+                    <td><a href="{% url 'deletecontact' v.id %}">DELETE</td>
+                        <td><a href="{% url 'movetoblacklist' v.id %}">MOVE TO BLACKLIST</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </body>
+    {% if messages %}
+        {% for msg in messages %}
+            <script>
+                alert('{{msg}}')
+            </script>
+        {% endfor %}
+    {% endif %}
+</html>

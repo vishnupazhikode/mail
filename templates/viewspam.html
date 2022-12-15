@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.css">
+    <script src="/static/js/bootstrap.js"></script>
+</head>
+
+
+<body>
+    <div class='navbar navbar-expand-lg navbar-dark bg-primary'>
+        <a class="navbar-brand text-warning" href>SPAM MAIL</a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">home</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">aboutus</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">contactus</a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <body>
+        <div class="container w-50">
+            <h2 class="text-center text-danger mt-2">VIEW SPAM</h2>
+
+        <form>
+            <table class="table table-bordered table-warning">
+                <tr>
+                    <th>SENDERNAME</th>
+                    <th>SUBJECT</th>
+                    <th>MESSAGE</th>
+                    <th>TIME</th>
+                    <th>DATE</th>
+                    <th>ACTION</th>
+                </tr>
+                {% for v in spaam %}
+                <tr>
+                    <td>{{v.senderid.username}}</td>
+                    <td>{{v.subject}}</td>
+                    <td>{{v.message}}</td>
+                    <td>{{v.time}}</td>
+                    <td>{{v.date}}</td>
+                    <td><a href="{% url 'deletespam' v.id%}">DELETE</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+        </div>
+    </body>
+</html>

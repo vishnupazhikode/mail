@@ -1,0 +1,32 @@
+<html>
+    <body>
+        <form method="post" action="{% url 'custumerseasoncountryAction' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>SEASON FACTOR</td>
+                    <td>
+                        <select name="seasonfactor" id="seasonfactor">
+                        <option value="">--select--</option>
+                        {% for v in uff %}
+                        <option value="{{v.factorid.id}}">{{v.factorid.factor}}</option>
+                        {% endfor %}
+                        </select>           
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="add"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+{% if messages %}
+    {% for msg in messages %}
+        <script>
+            alert('{{msg}}')
+        </script>
+    {% endfor %}
+{% endif %}
+</html>

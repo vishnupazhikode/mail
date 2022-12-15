@@ -1,0 +1,25 @@
+<html>
+    <body>
+        <form>
+            <table>
+                <tr>
+                    <th>RECIVERNAME</th>
+                    <th>SUBJECT</th>
+                    <th>MESSAGE</th>
+                    <th>DATE</th>
+                    <th>TIME</th>
+                </tr>
+                {% for v in send %}
+                <tr>
+                    <td>{{v.reciverid.username}}</td>
+                    <td>{{v.subject}}</td>
+                    <td>{{v.message}}</td>
+                    <td>{{v.date}}</td>
+                    <td>{{v.time}}</td>
+                    <td><a href="{% url 'delete' v.id %}">DELETE</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </body>
+</html>

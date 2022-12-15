@@ -1,0 +1,26 @@
+<html>
+    <body>
+        <form>
+            <table>
+                <tr>
+                    <th>USER</th>
+                    <th>NAME</th>
+                    <th>REMARK</th>
+                    <th>DATE</th>
+                    <th>TIME</th>
+                </tr>
+                {% for v in blck %}
+                <tr>
+                    <td>{{v.contactid.username}}</td>
+                    <td>{{v.name}}</td>
+                    <td>{{v.remark}}</td>
+                    <td>{{v.date}}</td>
+                    <td>{{v.time}}</td>
+                    <td><a href="{% url 'deleteblacklist' v.id%}">DELETE</td>
+                    
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </body>
+</html>

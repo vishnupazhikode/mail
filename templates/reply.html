@@ -1,0 +1,27 @@
+<html>
+    <body>
+        <form method="post" action="{% url 'replyAction' %}">
+            {% csrf_token %}
+            <table>
+                {% for v in reply %}
+                <tr>
+                    <td>RECIVERRNAME</td>
+                    <td><input type="text" name="reciver" value="{{v.reciverid.username}}"></td>
+                </tr>
+                <tr>
+                    <td>SUBJECT</td>
+                    <td><input type="text" name="subject"></td>
+                </tr>
+                <tr>
+                    <td>MESSAGE</td>
+                    <td><textarea name="message" rows="4" coloumns="3"></textarea></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="reply"></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </form>
+    </body>
+</html>
